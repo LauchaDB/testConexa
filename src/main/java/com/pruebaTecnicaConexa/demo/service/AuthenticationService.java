@@ -3,6 +3,7 @@ package com.pruebaTecnicaConexa.demo.service;
 import com.pruebaTecnicaConexa.demo.model.auth.LoginRequest;
 import com.pruebaTecnicaConexa.demo.model.auth.LoginResponse;
 import com.pruebaTecnicaConexa.demo.model.auth.User;
+import com.pruebaTecnicaConexa.demo.security.AuthenticationFacade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -19,12 +20,12 @@ public class AuthenticationService {
     private final JwtService jwtService;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
-    private final com.pruebaTecnicaConexa.demo.security.AuthenticationService authenticationService;
+    private final AuthenticationFacade authenticationFacade;
 
     private final Map<String, User> users = new HashMap<>();
 
     public LoginResponse register(LoginRequest request) {
-        if (authenticationService.findByUsername(request.getUsername()) != null) {
+        if (authenticationFacade.findByUsername(request.getUsername()) != null) {
             throw new IllegalArgumentException("Username already exists");
         }
 
@@ -34,9 +35,9 @@ public class AuthenticationService {
                 .role("USER")
                 .build();
         
-        authenticationService.saveUser(user);
+        authenticationFacade.saveUser(user);
 
-        String jwt = jwtService.generateToken(authenticationService.createUserDetails(user));
+        String jwt = jwtService.generateToken(authenticationFacade.createUserDetails(user));
         return LoginResponse.builder()
                 .token(jwt)
                 .username(user.getUsername())
@@ -51,8 +52,8 @@ public class AuthenticationService {
                 )
         );
         
-        User user = authenticationService.findByUsername(request.getUsername());
-        String jwt = jwtService.generateToken(authenticationService.createUserDetails(user));
+        User user = authenticationFacade.findByUsername(request.getUsername());
+        String jwt = jwtService.generateToken(authenticationFacade.createUserDetails(user));
         
         return LoginResponse.builder()
                 .token(jwt)

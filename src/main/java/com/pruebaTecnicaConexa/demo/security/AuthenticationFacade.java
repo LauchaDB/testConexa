@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Component
-public class AuthenticationService {
+public class AuthenticationFacade {
     private final Map<String, User> users = new HashMap<>();
 
     public void saveUser(User user) {

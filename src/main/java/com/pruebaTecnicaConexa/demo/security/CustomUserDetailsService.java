@@ -10,10 +10,10 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class CustomUserDetailsService implements UserDetailsService {
 
-    private final AuthenticationService authenticationService;
+    private final AuthenticationFacade authenticationFacade;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return authenticationService.loadUserByUsername(username);
+        return authenticationFacade.loadUserByUsername(username);
     }
 } 
