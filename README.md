@@ -323,4 +323,4 @@ El proyecto incluye pruebas unitarias y de integración. Para ejecutarlas:
 ### URLs y Dominios
 
 Railway asigna automáticamente un subdominio para la aplicación.
-`https://tu-app.railway.app`
+`https://testconexa-production.up.railway.app`
