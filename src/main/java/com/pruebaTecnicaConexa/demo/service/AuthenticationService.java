@@ -45,19 +45,23 @@ public class AuthenticationService {
     }
 
     public LoginResponse authenticate(LoginRequest request) {
-        authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        request.getUsername(),
-                        request.getPassword()
-                )
-        );
-        
-        User user = authenticationFacade.findByUsername(request.getUsername());
-        String jwt = jwtService.generateToken(authenticationFacade.createUserDetails(user));
-        
-        return LoginResponse.builder()
-                .token(jwt)
-                .username(user.getUsername())
-                .build();
+        try {
+            authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(
+                            request.getUsername(),
+                            request.getPassword()
+                    )
+            );
+            
+            User user = authenticationFacade.findByUsername(request.getUsername());
+            String jwt = jwtService.generateToken(authenticationFacade.createUserDetails(user));
+            
+            return LoginResponse.builder()
+                    .token(jwt)
+                    .username(user.getUsername())
+                    .build();
+        } catch (Exception e) {
+            throw new org.springframework.security.authentication.BadCredentialsException("Invalid username or password");
+        }
     }
 } 

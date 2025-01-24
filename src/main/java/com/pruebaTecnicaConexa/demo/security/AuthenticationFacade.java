@@ -20,6 +20,10 @@ public class AuthenticationFacade {
         return users.get(username);
     }
 
+    public void clearUsers() {
+        users.clear();
+    }
+
     public UserDetails createUserDetails(User user) {
         return org.springframework.security.core.userdetails.User
                 .withUsername(user.getUsername())

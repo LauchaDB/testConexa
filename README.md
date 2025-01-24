@@ -42,23 +42,10 @@ docker-compose down
 
 ## Uso con Docker Hub
 
-1. Para subir la imagen a Docker Hub:
+Para usar la imagen desde Docker Hub:
 ```bash
-# Login en Docker Hub
-docker login
-
-# Construir la imagen
-docker-compose build
-
-# Subir la imagen
-docker-compose push
-```
-
-2. Para usar la imagen desde Docker Hub:
-```bash
-# Reemplaza 'tuusuario' con el nombre de usuario correcto
-docker pull tuusuario/starwars-api:latest
-docker run -p 8080:8080 tuusuario/starwars-api:latest
+docker pull lautidb/starwars-api:latest
+docker run -p 8080:8080 lautidb/starwars-api:latest
 ```
 
 La aplicación estará disponible en `http://localhost:8080`
@@ -67,7 +54,7 @@ La aplicación estará disponible en `http://localhost:8080`
 
 1. Clonar el repositorio:
 ```bash
-git clone [URL_DEL_REPOSITORIO]
+git clone https://github.com/LauchaDB/testConexa
 cd pruebaTecnicaConexa
 ```
 
@@ -315,38 +302,6 @@ curl -X GET http://localhost:8080/api/v1/people \
 
 El proyecto incluye pruebas unitarias y de integración. Para ejecutarlas:
 
-```bash
-# Ejecutar todas las pruebas
-mvn test
-
-# Ejecutar solo pruebas unitarias
-mvn test -Dtest=*Test
-
-# Ejecutar solo pruebas de integración
-mvn test -Dtest=*IntegrationTest
-```
-
-## Estructura del Proyecto
-
-```
-src/
-├── main/
-│   ├── java/
-│   │   └── com/pruebaTecnicaConexa/demo/
-│   │       ├── config/          # Configuraciones de Spring
-│   │       ├── controller/      # Controladores REST
-│   │       ├── model/          # Modelos de datos
-│   │       ├── security/       # Configuración de seguridad
-│   │       └── service/        # Servicios
-│   └── resources/
-│       └── application.properties
-└── test/
-    └── java/
-        └── com/pruebaTecnicaConexa/demo/
-            ├── service/         # Pruebas unitarias
-            └── integration/     # Pruebas de integración
-```
-
 ## Tecnologías Utilizadas
 
 - Spring Boot 2.7.18
@@ -360,51 +315,12 @@ src/
 
 ## Despliegue en Railway
 
-1. Crear una cuenta en [Railway](https://railway.app/)
-
-2. Instalar Railway CLI (opcional):
-```bash
-npm i -g @railway/cli
-```
-
-3. Login en Railway:
-```bash
-railway login
-```
-
-4. Iniciar nuevo proyecto:
-```bash
-railway init
-```
-
-5. Desplegar la aplicación:
-```bash
-railway up
-```
-
-Alternativamente, puedes desplegar directamente desde GitHub:
-
-1. Ve a [Railway](https://railway.app/)
-2. Inicia sesión con tu cuenta de GitHub
-3. Crea un nuevo proyecto
-4. Selecciona "Deploy from GitHub repo"
-5. Selecciona este repositorio
-6. Railway detectará automáticamente el Dockerfile y desplegará la aplicación
-
-Variables de entorno necesarias en Railway:
-- `JWT_SECRET`
-- `JWT_EXPIRATION`
-- `SPRING_PROFILES_ACTIVE=prod`
-
 ### Monitoreo y Logs
 
-- Puedes ver los logs en tiempo real desde el dashboard de Railway
+- Se pueden ver los logs en tiempo real desde el dashboard de Railway
 - Railway proporciona métricas básicas de CPU y memoria
-- Puedes configurar alertas para cuando la aplicación tenga problemas
 
 ### URLs y Dominios
 
-Railway asignará automáticamente un subdominio para tu aplicación. Por ejemplo:
+Railway asigna automáticamente un subdominio para la aplicación.
 `https://tu-app.railway.app`
-
-También puedes configurar tu propio dominio personalizado en la sección de configuración del proyecto.
